@@ -25,13 +25,13 @@ public class ContactController {
     }
 
     @PostMapping(path = "/createContact")
-    public String createContact(Contact contact) {
+    public String createContact(@ModelAttribute Contact contact) {
         contactService.createOrUpdateContact(contact);
         return "redirect:/";
     }
 
     @RequestMapping(path = {"/editContact", "/editContact/{id}"})
-    public String editEmployeeById(Model model, @PathVariable("id") Optional<Long> id)
+    public String editContactById(Model model, @PathVariable("id") Optional<Long> id)
             throws ContactNotFoundException {
         if (id.isPresent()) {
             Contact contact = contactService.getContactById(id.get());
@@ -43,7 +43,7 @@ public class ContactController {
     }
 
     @RequestMapping(path = "/deleteContact/{id}")
-    public String deleteEmployeeById(Model model, @PathVariable("id") Long id)
+    public String deleteContactById(Model model, @PathVariable("id") Long id)
             throws ContactNotFoundException {
         contactService.deleteContactById(id);
         return "redirect:/";
