@@ -25,7 +25,7 @@ public class ContactController {
     }
 
     @PostMapping(path = "/createContact")
-    public String createContact(@ModelAttribute Contact contact) {
+    public String createContact(@ModelAttribute Contact contact) throws ContactNotFoundException{
         contactService.createOrUpdateContact(contact);
         return "redirect:/";
     }

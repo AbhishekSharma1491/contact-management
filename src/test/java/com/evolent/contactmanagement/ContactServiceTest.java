@@ -44,7 +44,7 @@ public class ContactServiceTest {
     }
 
     @Test
-    public void testCreateOrUpdateContact() {
+    public void testCreateOrUpdateContact() throws ContactNotFoundException {
         Contact contact = getSampleContacts().get(0);
         Mockito.when(contactRepository.findById(any())).thenReturn(Optional.of(contact));
         Mockito.when(contactRepository.save(any())).thenReturn(mapContact(contact));

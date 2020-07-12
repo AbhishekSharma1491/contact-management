@@ -29,7 +29,15 @@ public class ContactService {
             throw new ContactNotFoundException("No contact found");
     }
 
-    public Contact createOrUpdateContact(Contact contact) {
+    public Contact createOrUpdateContact(Contact contact) throws ContactNotFoundException {
+        Contact contactByPhone = contactRepository.findByPhoneNumber(contact.getPhoneNumber());
+        Contact contactByEmail = contactRepository.findByEmail(contact.getEmail());
+        if(contactByPhone!=null && contactByPhone.getId()!=contact.getId()) {
+            throw new ContactNotFoundException("Phone number already exists");
+        }
+        if(contactByEmail!=null && contactByEmail.getId()!=contact.getId()) {
+            throw new ContactNotFoundException("Email already exists");
+        }
         if(contact.getId()==null)
             return contactRepository.save(contact);
         else {
